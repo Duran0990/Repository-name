@@ -1,0 +1,44 @@
+let cart = [];
+
+function filterCategory(cat) {
+  const list = document.getElementById('product-list');
+  list.innerHTML = '';
+  products.filter(p => p.category === cat).forEach(p => {
+    list.innerHTML += `
+      <div class="card">
+        <h3>${p.name}</h3>
+        <p>${p.price} грн</p>
+        <button onclick="addToCart(${p.id})">До корзини</button>
+      </div>`;
+  });
+}
+
+function addToCart(id) {
+  const item = products.find(p => p.id === id);
+  cart.push(item);
+  alert('Додано до корзини!');
+}
+
+function viewCart() {
+  const list = document.getElementById('product-list');
+  list.innerHTML = '<h2>Корзина:</h2>';
+  cart.forEach((item) => {
+    list.innerHTML += `<p>${item.name} — ${item.price} грн</p>`;
+  });
+  list.innerHTML += '<button onclick="sendOrder()">Оформити замовлення</button>';
+}
+
+function sendOrder() {
+  const order = cart.map(i => i.name).join(', ');
+  fetch('https://komfortson-api.up.railway.app/send', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      name: "Ім'я",
+      phone: "+380...",
+      order: order
+    })
+  })
+  .then(res => alert("Замовлення надіслано!"))
+  .catch(err => alert("Помилка при надсиланні замовлення"));
+}

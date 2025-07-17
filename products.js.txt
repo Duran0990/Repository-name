@@ -1,0 +1,5 @@
+const products = [
+  { id: 1, name: "Топпер Classic", price: 1500, category: "Топпери" },
+  { id: 2, name: "Матрац Orthopedic Z", price: 5300, category: "Матраци" },
+  { id: 3, name: "Кровать Comfort Lux", price: 8900, category: "Кроваті" }
+];
